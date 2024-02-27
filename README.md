@@ -90,8 +90,93 @@ Implementation using C or pyhton code
 Testing algorithm with different key values. 
 
 ## PROGRAM:
+```
+#include <stdio.h>
+#include <ctype.h>
+
+#define SIZE 5
+
+int main() 
+{
+    char key[SIZE * SIZE];
+    char plaintext[100];
+    char ciphertext[100];
+    char keyMatrix[SIZE][SIZE];
+
+    printf("Enter the key: ");
+    scanf("%s", key);
+
+    int k = 0;
+    char alphabet[26] = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j) 
+        {
+            if (k < 25) 
+            {
+                keyMatrix[i][j] = key[k++];
+            } 
+            else 
+            {
+                keyMatrix[i][j] = alphabet[k - 25];
+            }
+        }
+    }
+
+    printf("Enter plaintext: ");
+    scanf("%s", plaintext);
+
+    k = 0;
+    while (plaintext[k] != '\0')
+    {
+        char a = plaintext[k++];
+        char b = plaintext[k++];
+
+        int rowA, colA, rowB, colB;
+        for (int i = 0; i < SIZE; ++i)
+        {
+            for (int j = 0; j < SIZE; ++j)
+            {
+                if (keyMatrix[i][j] == a)
+                {
+                    rowA = i;
+                    colA = j;
+                }
+                if (keyMatrix[i][j] == b)
+                {
+                    rowB = i;
+                    colB = j;
+                }
+            }
+        }
+
+        if (rowA == rowB)
+        {
+            ciphertext[k - 2] = keyMatrix[rowA][(colA + 1) % SIZE];
+            ciphertext[k - 1] = keyMatrix[rowB][(colB + 1) % SIZE];
+        } 
+        else if (colA == colB)
+        {
+            ciphertext[k - 2] = keyMatrix[(rowA + 1) % SIZE][colA];
+            ciphertext[k - 1] = keyMatrix[(rowB + 1) % SIZE][colB];
+        } 
+        else 
+        {
+            ciphertext[k - 2] = keyMatrix[rowA][colB];
+            ciphertext[k - 1] = keyMatrix[rowB][colA];
+        }
+    }
+
+    ciphertext[k] = '\0';
+
+    printf("Ciphertext: %s\n", ciphertext);
+
+    return 0;
+}
+```
 
 ## OUTPUT:
+![image](https://github.com/praveenvenkatt/Cryptography---19CS412-classical-techqniques/assets/119560117/23203474-2903-4452-9d64-fd53ffa45a2f)
 
 ## RESULT:
 The program is executed successfully
