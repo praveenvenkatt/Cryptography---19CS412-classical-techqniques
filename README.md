@@ -28,8 +28,8 @@ Testing algorithm with different key values.
 #include <string.h>
 
 int main()
-{
-    int i, key;
+ {
+    int key;
     char s[1000];
 
     printf("Enter a plaintext to encrypt:\n");
@@ -39,28 +39,42 @@ int main()
 
     int n = strlen(s);
 
-    for (i = 0; i < n; i++) 
+    for (int i = 0; i < n; i++) 
     {
         char c = s[i];
-
-        if (c >= 'a' && c <= 'z')
+        if (c >= 'a' && c <= 'z') 
         {
             s[i] = 'a' + (c - 'a' + key) % 26;
-        } 
+        }
         else if (c >= 'A' && c <= 'Z')
         {
             s[i] = 'A' + (c - 'A' + key) % 26;
         }
     }
-
     printf("Encrypted message: %s\n", s);
+
+    for (int i = 0; i < n; i++)
+    {
+        char c = s[i];
+        if (c >= 'a' && c <= 'z') 
+        {
+            s[i] = 'a' + (c - 'a' - key + 26) % 26; 
+        }
+        else if (c >= 'A' && c <= 'Z')
+        {
+            s[i] = 'A' + (c - 'A' - key + 26) % 26; 
+        }
+    }
+    printf("Decrypted message: %s\n", s);
 
     return 0;
 }
+
 ```
 
 ## OUTPUT:
-![image](https://github.com/praveenvenkatt/Cryptography---19CS412-classical-techqniques/assets/119560117/3e844049-0ce9-4409-a354-30bf666ddc5b)
+![image](https://github.com/praveenvenkatt/Cryptography---19CS412-classical-techqniques/assets/119560117/aaa62c2e-638d-426d-85c4-8204164db251)
+
 
 
 ## RESULT:
