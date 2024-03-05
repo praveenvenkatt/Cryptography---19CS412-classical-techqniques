@@ -425,50 +425,63 @@ Testing algorithm with different key values.
 
 ## PROGRAM:
 ```
-#include <stdio.h>
-#include <string.h>
 
-#define MAX_LENGTH 100
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
 
 int main()
 {
-    char input[MAX_LENGTH];
-    char encrypted[MAX_LENGTH];
-    int rails;
+    int i, j, k, l;
+    char a[20], c[20], d[20];
 
-    printf("Enter the text to encrypt: ");
-    fgets(input, MAX_LENGTH, stdin);
-    input[strcspn(input, "\n")] = '\0'; 
+    printf("\n\t\t RAIL FENCE TECHNIQUE");
+    printf("\n\nEnter the input string : ");
+    gets(a);
+    l = strlen(a);
 
-    printf("Enter the number of rails: ");
-    scanf("%d", &rails);
-    getchar(); 
-
-    int inputLength = strlen(input);
-    int cycle = 2 * (rails - 1);
-    int k = 0;
-
-    for (int i = 0; i < rails; ++i)
+    for(i = 0, j = 0; i < l; i++)
     {
-        for (int j = i; j < inputLength; j += cycle) 
-        {
-            encrypted[k++] = input[j];
-            if (i != 0 && i != rails - 1 && j + cycle - 2 * i < inputLength)
-            {
-                encrypted[k++] = input[j + cycle - 2 * i];
-            }
-        }
+        if(i % 2 == 0)
+            c[j++] = a[i];
     }
-    encrypted[inputLength] = '\0';
+    for(i = 0; i < l; i++)
+    {
+        if(i % 2 == 1)
+            c[j++] = a[i];
+    }
+    c[j] = '\0';
 
-    printf("Encrypted text: %s\n", encrypted);
+    printf("\nCipher text after applying rail fence :");
+    printf("%s", c);
+
+    if(l % 2 == 0)
+        k = l / 2;
+    else
+        k = (l / 2) + 1;
+
+    for(i = 0, j = 0; i < k; i++)
+    {
+        d[j] = c[i];
+        j = j + 2;
+    }
+    for(i = k, j = 1; i < l; i++)
+    {
+        d[j] = c[i];
+        j = j + 2;
+    }
+    d[l] = '\0';
+
+    printf("\nText after decryption : ");
+    printf("%s", d);
 
     return 0;
 }
 ```
 
 ## OUTPUT:
-![image](https://github.com/praveenvenkatt/Cryptography---19CS412-classical-techqniques/assets/119560117/936238e3-37fe-46e0-b637-be3e87f380cb)
+![image](https://github.com/praveenvenkatt/Cryptography---19CS412-classical-techqniques/assets/119560117/e634e969-1462-4899-b38d-509b66c24dfe)
+
 
 
 ## RESULT:
